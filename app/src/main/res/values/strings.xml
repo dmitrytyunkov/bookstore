@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Bookstore</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_author_button">Add author</string>
+    <string name="add_book_button">Add book</string>
+    <string name="show_author_button">Show authors</string>
+    <string name="show_book_button">Show books</string>
+    <string name="first_name_text">First name</string>
+    <string name="last_name_text">Last name</string>
+    <string name="patronymic_text">Patronymic</string>
+    <string name="birthday_text">Birthday</string>
+    <string name="email_text">Email</string>
+    <string name="title_book_text">Title</string>
+    <string name="year_text">Year of publishing</string>
+    <string name="pages_text">Number of pages</string>
+    <string name="submit_button">Submit</string>
+    <string name="add_email_button">Add another email</string>
 </resources>
