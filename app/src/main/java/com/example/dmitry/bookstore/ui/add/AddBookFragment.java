@@ -1,4 +1,4 @@
-package com.example.dmitry.bookstore.ui;
+package com.example.dmitry.bookstore.ui.add;
 
 
 import android.app.Fragment;
@@ -42,12 +42,8 @@ public class AddBookFragment extends BaseFragment {
     EditText yearEditText;
     @Bind(R.id.pages_edit_text)
     EditText pagesEditText;
-    @Bind(R.id.layout_add_book)
-    LinearLayout layoutAddBook;
     @Bind(R.id.author_list_view)
     ListView authorListView;
-    @Bind(R.id.author_button)
-    Button authorButton;
 
     List<Author> authors;
     List<Author> authorList;
@@ -63,6 +59,7 @@ public class AddBookFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,16 +70,15 @@ public class AddBookFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createListAuthor();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-
-
-    @OnClick(R.id.author_button)
-    public void onAuthorButtonClick() {
-        createListAuthor();
-        authorButton.setVisibility(View.INVISIBLE);
     }
 
 
@@ -116,9 +112,5 @@ public class AddBookFragment extends BaseFragment {
             AuthorBooks authorBooks = new AuthorBooks(author, book);
             authorBooks.save();
         }
-        Long l = AuthorBooks.count(AuthorBooks.class);
-        List<AuthorBooks> a = AuthorBooks.listAll(AuthorBooks.class);
-
-        l = new Long(0);
     }
 }

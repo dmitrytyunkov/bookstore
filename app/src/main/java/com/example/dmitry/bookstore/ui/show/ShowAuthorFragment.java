@@ -1,4 +1,4 @@
-package com.example.dmitry.bookstore.ui;
+package com.example.dmitry.bookstore.ui.show;
 
 
 import android.app.Fragment;
@@ -31,8 +31,6 @@ public class ShowAuthorFragment extends BaseFragment {
 
     @Bind(R.id.linear_show_author)
     LinearLayout linearShowAuthor;
-    @Bind(R.id.show_button)
-    Button showButton;
 
     TextView textView;
 
@@ -52,16 +50,17 @@ public class ShowAuthorFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createAuthorList();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.show_button)
-    public void onShowButtonClick() {
-        createAuthorList();
-        showButton.setVisibility(View.INVISIBLE);
-    }
 
     private void createAuthorList() {
         List<Author> authors = Author.listAll(Author.class);

@@ -1,8 +1,9 @@
-package com.example.dmitry.bookstore.ui;
+package com.example.dmitry.bookstore.ui.show;
 
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.example.dmitry.bookstore.R;
 import com.example.dmitry.bookstore.model.Author;
 import com.example.dmitry.bookstore.model.Book;
-import com.example.dmitry.bookstore.model.EAddress;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
 import java.util.List;
@@ -30,8 +30,6 @@ public class ShowBookFragment extends BaseFragment {
 
     @Bind(R.id.linear_show_books)
     LinearLayout linearShowBooks;
-    @Bind(R.id.show_button)
-    Button showButton;
 
     TextView textView;
 
@@ -51,19 +49,19 @@ public class ShowBookFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createBookList();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
 
 
-    @OnClick(R.id.show_button)
-    public void onShowButtonClick() {
-        createAuthorList();
-        showButton.setVisibility(View.INVISIBLE);
-    }
-
-    private void createAuthorList() {
+    private void createBookList() {
         List<Book> books = Author.listAll(Book.class);
         for (Book book : books) {
             textView = new TextView(getActivity());

@@ -46,8 +46,6 @@ public class Book extends SugarRecord {
     }
 
     public List<Author> getAuthors() {
-        AuthorBooks aB = AuthorBooks.first(AuthorBooks.class);
-        aB = AuthorBooks.findById(AuthorBooks.class, 1);
         List<AuthorBooks> authorBooksList = AuthorBooks.find(AuthorBooks.class, "book = ?", getId().toString());
         List<Author> authors = new ArrayList<>();
         for (AuthorBooks authorBooks : authorBooksList) {

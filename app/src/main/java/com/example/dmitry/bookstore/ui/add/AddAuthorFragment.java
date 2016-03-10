@@ -1,4 +1,4 @@
-package com.example.dmitry.bookstore.ui;
+package com.example.dmitry.bookstore.ui.add;
 
 
 import android.app.Fragment;
@@ -42,8 +42,7 @@ public class AddAuthorFragment extends BaseFragment {
     LinearLayout linearMain;
 
     List<EditText> editTexts = new ArrayList<>();
-    @Bind(R.id.add_email_button)
-    Button addEmailButton;
+
 
     public AddAuthorFragment() {
         // Required empty public constructor
@@ -87,8 +86,5 @@ public class AddAuthorFragment extends BaseFragment {
             eAddress = new EAddress(editText.getText().toString(), author);
             eAddress.save();
         }
-
-        List<Author> authors = author.listAll(Author.class);
-        List<EAddress> eAddressList = eAddress.listAll(EAddress.class);
     }
 }
