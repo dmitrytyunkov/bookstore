@@ -85,7 +85,7 @@ public class AddBookFragment extends BaseFragment {
     private void createListAuthor() {
         authors = Author.listAll(Author.class);
         ArrayAdapter<Author> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
-                android.R.layout.select_dialog_multichoice, authors);
+                R.layout.list_item_multiple_choice, authors);
         authorListView.setAdapter(adapter);
     }
 
