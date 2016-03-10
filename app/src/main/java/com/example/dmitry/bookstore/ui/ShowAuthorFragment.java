@@ -90,8 +90,8 @@ public class ShowAuthorFragment extends BaseFragment {
             }
             for (Book book : author.getBooks()) {
                 textView = new TextView(getActivity());
-                textView.setText(String.format("%s: %s", getString(R.string.email_text),
-                        book.getTitle()));
+                textView.setText(String.format("%s: %s", getString(R.string.book_text),
+                        book.toString()));
                 linearShowAuthor.addView(textView);
             }
             textView = new TextView(getActivity());

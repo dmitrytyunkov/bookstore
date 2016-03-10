@@ -116,5 +116,9 @@ public class AddBookFragment extends BaseFragment {
             AuthorBooks authorBooks = new AuthorBooks(author, book);
             authorBooks.save();
         }
+        Long l = AuthorBooks.count(AuthorBooks.class);
+        List<AuthorBooks> a = AuthorBooks.listAll(AuthorBooks.class);
+
+        l = new Long(0);
     }
 }
