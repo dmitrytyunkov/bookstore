@@ -44,7 +44,27 @@ public class Author extends SugarRecord {
 
     }
 
-    List<EAddress> getEmails() {
+    public List<EAddress> getEmails() {
         return EAddress.find(EAddress.class, "author = ?", new String[]{getId().toString()});
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 }

@@ -38,7 +38,7 @@ public class AddAuthorFragment extends BaseFragment {
     EditText birthdayEditText;
     @Bind(R.id.email_edit_text)
     EditText emailEditText;
-    @Bind(R.id.linear_main)
+    @Bind(R.id.linear_add_author)
     LinearLayout linearMain;
 
     List<EditText> editTexts = new ArrayList<>();
@@ -70,6 +70,7 @@ public class AddAuthorFragment extends BaseFragment {
     public void onAddEmailButtonClick() {
         EditText editText = new EditText(getActivity());
         editText.setHint(R.string.email_text);
+        editText.setInputType(emailEditText.getInputType());
         linearMain.addView(editText);
         editTexts.add(editText);
     }

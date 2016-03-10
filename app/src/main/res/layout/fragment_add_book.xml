@@ -42,9 +42,14 @@
                 android:hint="@string/pages_text" />
 
             <CheckedTextView
+                android:id="@+id/checkedTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="JHBJHBK"/>
+                android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_gravity="right"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:gravity="right|center_vertical"
+                android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         </LinearLayout>
 

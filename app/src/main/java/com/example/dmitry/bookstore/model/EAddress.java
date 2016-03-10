@@ -21,4 +21,8 @@ public class EAddress extends SugarRecord {
     public EAddress() {
 
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

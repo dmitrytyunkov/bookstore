@@ -17,4 +17,5 @@
     <string name="pages_text">Number of pages</string>
     <string name="submit_button">Submit</string>
     <string name="add_email_button">Add another email</string>
+    <string name="show_button">Show</string>
 </resources>

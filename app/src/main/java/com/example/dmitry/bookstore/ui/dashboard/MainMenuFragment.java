@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.example.dmitry.bookstore.R;
 import com.example.dmitry.bookstore.events.OpenAddAuthorFragmentEvent;
 import com.example.dmitry.bookstore.events.OpenAddBookFragmentEvent;
+import com.example.dmitry.bookstore.events.OpenShowAuthorFragmentEvent;
+import com.example.dmitry.bookstore.events.OpenShowBookFragmentEvent;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
 import butterknife.ButterKnife;
@@ -51,5 +53,15 @@ public class MainMenuFragment extends BaseFragment {
     @OnClick(R.id.add_book_button)
     public void onAddBookButtonClick() {
         getBus().post(new OpenAddBookFragmentEvent());
+    }
+
+    @OnClick(R.id.show_author_button)
+    public void onShowAuthorButtonClick() {
+        getBus().post(new OpenShowAuthorFragmentEvent());
+    }
+
+    @OnClick(R.id.show_book_button)
+    public void onShowBookButtonClick() {
+        getBus().post(new OpenShowBookFragmentEvent());
     }
 }

@@ -1,13 +1,16 @@
 package com.example.dmitry.bookstore.ui.dashboard;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.dmitry.bookstore.R;
 import com.example.dmitry.bookstore.events.OpenAddAuthorFragmentEvent;
 import com.example.dmitry.bookstore.events.OpenAddBookFragmentEvent;
+import com.example.dmitry.bookstore.events.OpenShowAuthorFragmentEvent;
+import com.example.dmitry.bookstore.events.OpenShowBookFragmentEvent;
 import com.example.dmitry.bookstore.ui.AddAuthorFragment;
 import com.example.dmitry.bookstore.ui.AddBookFragment;
+import com.example.dmitry.bookstore.ui.ShowAuthorFragment;
+import com.example.dmitry.bookstore.ui.ShowBookFragment;
 import com.example.dmitry.bookstore.ui.base.BaseActivity;
 import com.squareup.otto.Subscribe;
 
@@ -32,5 +35,15 @@ public class MainActivity extends BaseActivity {
     @Subscribe
     public void onOpenAddBookFragmentEvent(OpenAddBookFragmentEvent event) {
         replaceFragment(new AddBookFragment());
+    }
+
+    @Subscribe
+    public void onOpenShowAuthorFragmentEvent(OpenShowAuthorFragmentEvent event) {
+        replaceFragment(new ShowAuthorFragment());
+    }
+
+    @Subscribe
+    public void onOpenShowBookFragmentEvent(OpenShowBookFragmentEvent event) {
+        replaceFragment(new ShowBookFragment());
     }
 }
