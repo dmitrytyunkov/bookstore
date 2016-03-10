@@ -32,4 +32,25 @@ public class Book extends SugarRecord {
     public Book() {
 
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public List<Author> getAuthors() {
+        List<AuthorBooks> authorBooksList = AuthorBooks.find(AuthorBooks.class, "book = ?", getId().toString());
+        List<Author> authors = new ArrayList<>();
+        for (AuthorBooks authorBooks : authorBooksList) {
+            authors.add(Author.findById(Author.class, authorBooks.getAuthor().getId()));
+        }
+        return authors;
+    }
 }

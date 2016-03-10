@@ -12,10 +12,10 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+    <LinearLayout
+            android:id="@+id/layout_add_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -24,36 +24,49 @@
                 android:id="@+id/title_book_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/title_book_text"
                 android:inputType="text"
-                android:hint="@string/title_book_text" />
+                android:nextFocusDown="@+id/year_edit_text" />
 
             <EditText
                 android:id="@+id/year_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/year_text"
                 android:inputType="number"
-                android:hint="@string/year_text" />
+                android:nextFocusDown="@+id/pages_edit_text" />
 
             <EditText
                 android:id="@+id/pages_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/pages_text" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_gravity="right"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:gravity="right|center_vertical"
-                android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                android:hint="@string/pages_text"
+                android:inputType="number" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/author_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="multipleChoice" />
+
+        <Button
+            android:id="@+id/author_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_author_button"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/submit_book_button"

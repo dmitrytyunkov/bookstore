@@ -18,4 +18,6 @@
     <string name="submit_button">Submit</string>
     <string name="add_email_button">Add another email</string>
     <string name="show_button">Show</string>
+    <string name="add_new_author_button">Add author</string>
+    <string name="author_text">Author</string>
 </resources>

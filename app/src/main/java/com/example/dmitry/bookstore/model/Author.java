@@ -44,9 +44,6 @@ public class Author extends SugarRecord {
 
     }
 
-    public List<EAddress> getEmails() {
-        return EAddress.find(EAddress.class, "author = ?", new String[]{getId().toString()});
-    }
 
     public String getFirstName() {
         return firstName;
@@ -64,7 +61,21 @@ public class Author extends SugarRecord {
         return birthday;
     }
 
+    public List<EAddress> getEmails() {
+        return EAddress.find(EAddress.class, "author = ?", getId().toString());
+    }
+
     public List<Book> getBooks() {
+        List<AuthorBooks> authorBooksList = AuthorBooks.find(AuthorBooks.class, "author = ?", getId().toString());
+        List<Book> books = new ArrayList<>();
+        for (AuthorBooks authorBooks : authorBooksList) {
+            books.add(Book.findById(Book.class, authorBooks.getBook().getId()));
+        }
         return books;
+    }
+
+    @Override
+    public String toString() {
+        return lastName + " " + firstName + " " + patronymic + ", " + birthday + " г.р.";
     }
 }

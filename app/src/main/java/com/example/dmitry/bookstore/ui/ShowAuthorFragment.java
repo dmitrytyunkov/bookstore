@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dmitry.bookstore.R;
 import com.example.dmitry.bookstore.model.Author;
+import com.example.dmitry.bookstore.model.Book;
 import com.example.dmitry.bookstore.model.EAddress;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
@@ -29,18 +31,16 @@ public class ShowAuthorFragment extends BaseFragment {
 
     @Bind(R.id.linear_show_author)
     LinearLayout linearShowAuthor;
+    @Bind(R.id.show_button)
+    Button showButton;
 
     TextView textView;
+
 
     public ShowAuthorFragment() {
         // Required empty public constructor
     }
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,11 +58,12 @@ public class ShowAuthorFragment extends BaseFragment {
     }
 
     @OnClick(R.id.show_button)
-    public void onClick() {
-        ppp();
+    public void onShowButtonClick() {
+        createAuthorList();
+        showButton.setVisibility(View.INVISIBLE);
     }
 
-    private void ppp() {
+    private void createAuthorList() {
         List<Author> authors = Author.listAll(Author.class);
         for (Author author : authors) {
             textView = new TextView(getActivity());
@@ -83,7 +84,14 @@ public class ShowAuthorFragment extends BaseFragment {
             linearShowAuthor.addView(textView);
             for (EAddress emails : author.getEmails()) {
                 textView = new TextView(getActivity());
-                textView.setText(String.format("%s: %s", getString(R.string.email_text), emails.getEmail()));
+                textView.setText(String.format("%s: %s", getString(R.string.email_text),
+                        emails.getEmail()));
+                linearShowAuthor.addView(textView);
+            }
+            for (Book book : author.getBooks()) {
+                textView = new TextView(getActivity());
+                textView.setText(String.format("%s: %s", getString(R.string.email_text),
+                        book.getTitle()));
                 linearShowAuthor.addView(textView);
             }
             textView = new TextView(getActivity());

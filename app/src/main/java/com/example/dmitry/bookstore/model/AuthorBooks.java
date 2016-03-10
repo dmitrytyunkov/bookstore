@@ -14,4 +14,12 @@ public class AuthorBooks extends SugarRecord {
         this.author = author;
         this.book = book;
     }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }
