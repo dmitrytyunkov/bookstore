@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.dmitry.bookstore.R;
+import com.example.dmitry.bookstore.exception.AuthorException;
 import com.example.dmitry.bookstore.model.Author;
 import com.example.dmitry.bookstore.model.EAddress;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
@@ -76,15 +77,24 @@ public class AddAuthorFragment extends BaseFragment {
 
     @OnClick(R.id.submit_author_button)
     public void onSubmitAuthorButtonClick() {
-        Author author = new Author(firstNameEditText.getText().toString(),
-                lastNameEditText.getText().toString(), patronymicEditText.getText().toString(),
-                birthdayEditText.getText().toString());
-        author.save();
-        EAddress eAddress = new EAddress(emailEditText.getText().toString(), author);
-        eAddress.save();
-        for (EditText editText : editTexts) {
-            eAddress = new EAddress(editText.getText().toString(), author);
+        Author author = new Author();
+        Boolean isException = false;
+        try {
+            author = new Author(firstNameEditText.getText().toString(),
+                    lastNameEditText.getText().toString(), patronymicEditText.getText().toString(),
+                    birthdayEditText.getText().toString());
+        } catch (AuthorException ex) {
+            isException = true;
+            Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        if(!isException) {
+            author.save();
+            EAddress eAddress = new EAddress(emailEditText.getText().toString(), author);
             eAddress.save();
+            for (EditText editText : editTexts) {
+                eAddress = new EAddress(editText.getText().toString(), author);
+                eAddress.save();
+            }
         }
     }
 }

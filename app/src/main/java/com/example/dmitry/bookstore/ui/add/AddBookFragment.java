@@ -2,7 +2,6 @@ package com.example.dmitry.bookstore.ui.add;
 
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.SparseBooleanArray;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.dmitry.bookstore.R;
+import com.example.dmitry.bookstore.exception.BookException;
 import com.example.dmitry.bookstore.model.Author;
 import com.example.dmitry.bookstore.model.AuthorBooks;
 import com.example.dmitry.bookstore.model.Book;
@@ -104,13 +103,25 @@ public class AddBookFragment extends BaseFragment {
 
     @OnClick(R.id.submit_book_button)
     public void onSubmitBookButton() {
-        Book book = new Book(titleBookEditText.getText().toString(),
-                Integer.parseInt(yearEditText.getText().toString()),
-                Integer.parseInt(pagesEditText.getText().toString()));
-        book.save();
-        for (Author author : authorList) {
-            AuthorBooks authorBooks = new AuthorBooks(author, book);
-            authorBooks.save();
+        Boolean isException = false;
+        Book book = new Book();
+        try {
+            book = new Book(titleBookEditText.getText().toString(),
+                    Integer.parseInt(yearEditText.getText().toString()),
+                    Integer.parseInt(pagesEditText.getText().toString()));
+        } catch (BookException ex) {
+            isException = true;
+            Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException ex) {
+            isException = true;
+            Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        if (!isException) {
+            book.save();
+            for (Author author : authorList) {
+                AuthorBooks authorBooks = new AuthorBooks(author, book);
+                authorBooks.save();
+            }
         }
     }
 }

@@ -1,12 +1,11 @@
 package com.example.dmitry.bookstore.model;
 
+import com.example.dmitry.bookstore.error_code.AuthorErrorCode;
+import com.example.dmitry.bookstore.exception.AuthorException;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
-import com.orm.dsl.Table;
-import com.orm.dsl.Unique;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,20 +22,20 @@ public class Author extends SugarRecord {
     @Ignore
     List<Book> books;
 
-    public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails, List<Book> books) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails, List<Book> books) throws AuthorException {
+        setFirstName(firstName);
+        setLastName(lastName);
         this.patronymic = patronymic;
-        this.birthday = birthday;
+        setBirthday(birthday);
         this.emails = emails;
         this.books = books;
     }
 
-    public Author(String firstName, String lastName, String patronymic, String birthday) {
+    public Author(String firstName, String lastName, String patronymic, String birthday) throws AuthorException {
         this(firstName, lastName, patronymic, birthday, new ArrayList<EAddress>(), new ArrayList<Book>());
     }
 
-    public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails) {
+    public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails) throws AuthorException {
         this(firstName, lastName, patronymic, birthday, emails, new ArrayList<Book>());
     }
 
@@ -72,6 +71,23 @@ public class Author extends SugarRecord {
             books.add(Book.findById(Book.class, authorBooks.getBook().getId()));
         }
         return books;
+    }
+
+
+    public void setFirstName(String firstName) throws AuthorException {
+        if(firstName == null || firstName.length()==0)
+            throw new AuthorException(AuthorErrorCode.FIRST_NAME_INCORRECT.getErrorString());
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) throws AuthorException {
+        if(firstName == null || firstName.length()==0)
+            throw new AuthorException(AuthorErrorCode.LAST_NAME_INCORRECT.getErrorString());
+        this.lastName = lastName;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Override
