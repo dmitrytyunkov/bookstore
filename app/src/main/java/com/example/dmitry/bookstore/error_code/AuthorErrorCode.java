@@ -6,7 +6,7 @@ package com.example.dmitry.bookstore.error_code;
 public enum  AuthorErrorCode {
     FIRST_NAME_INCORRECT("First name incorrect"),
     LAST_NAME_INCORRECT("Last name incorrect"),
-    PATRONYMIC_INCORRECT("Patronymic incorrect");
+    BIRTHDAY_INCORRECT("Birthday incorrect");
 
     private final String errorString;
 

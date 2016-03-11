@@ -5,8 +5,14 @@ import com.example.dmitry.bookstore.exception.AuthorException;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by dmitry on 10.03.16.
@@ -16,11 +22,13 @@ public class Author extends SugarRecord {
     String firstName;
     String lastName;
     String patronymic;
-    String birthday;
+    Date birthday;
     @Ignore
     List<EAddress> emails;
     @Ignore
     List<Book> books;
+    @Ignore
+    final DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 
     public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails, List<Book> books) throws AuthorException {
         setFirstName(firstName);
@@ -56,8 +64,13 @@ public class Author extends SugarRecord {
         return patronymic;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
+    }
+
+
+    public DateFormat getFormat() {
+        return format;
     }
 
     public List<EAddress> getEmails() {
@@ -86,12 +99,40 @@ public class Author extends SugarRecord {
         this.lastName = lastName;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthday(String birthday) throws AuthorException {
+        this.birthday = dateFormatter(birthday);
     }
 
     @Override
     public String toString() {
-        return lastName + " " + firstName + " " + patronymic + ", " + birthday + " г.р.";
+        return lastName + " " + firstName + " " + patronymic + ", " + format.format(birthday) + " г.р.";
+    }
+
+
+    private Date dateFormatter(String dateString) throws AuthorException {
+        String[] strings = dateString.split("\\.");
+        int[] month30 = new int[]{4, 6, 9, 11};
+        int year;
+        try {
+            year = Integer.parseInt(strings[2]);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
+        }
+        int month = Integer.parseInt(strings[1]);
+        int day = Integer.parseInt(strings[0]);
+        if(year < 1850)
+            throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
+        if(month > 12)
+            throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
+        if(day > 31 || (day > 30 && Arrays.binarySearch(month30, month) > -1)
+                || (day > 29 && month == 2 && year%4 == 0) || (day > 28 && month == 2 && year%4 != 0))
+            throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
+        Date date;
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException ex) {
+            throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
+        }
+        return date;
     }
 }

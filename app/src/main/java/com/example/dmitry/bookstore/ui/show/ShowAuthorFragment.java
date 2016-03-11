@@ -17,7 +17,10 @@ import com.example.dmitry.bookstore.model.Book;
 import com.example.dmitry.bookstore.model.EAddress;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,7 +82,7 @@ public class ShowAuthorFragment extends BaseFragment {
             linearShowAuthor.addView(textView);
             textView = new TextView(getActivity());
             textView.setText(String.format("%s: %s", getString(R.string.birthday_text),
-                    author.getBirthday()));
+                    author.getFormat().format(author.getBirthday())));
             linearShowAuthor.addView(textView);
             for (EAddress emails : author.getEmails()) {
                 textView = new TextView(getActivity());
