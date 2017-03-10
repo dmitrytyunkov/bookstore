@@ -114,14 +114,23 @@ public class AddBookFragment extends BaseFragment {
             Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         } catch (NumberFormatException ex) {
             isException = true;
-            Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Incorrect page number or year", Toast.LENGTH_SHORT).show();
         }
         if (!isException) {
-            book.save();
-            for (Author author : authorList) {
-                AuthorBooks authorBooks = new AuthorBooks(author, book);
-                authorBooks.save();
+            if (authorList != null) {
+                book.save();
+                for (Author author : authorList) {
+                    AuthorBooks authorBooks = new AuthorBooks(author, book);
+                    authorBooks.save();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "No authors selected", Toast.LENGTH_SHORT).show();
             }
+            titleBookEditText.setText("");
+            yearEditText.setText("");
+            pagesEditText.setText("");
+            authorListView.clearChoices();
+            authorListView.requestLayout();
         }
     }
 }

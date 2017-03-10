@@ -1,8 +1,8 @@
 package com.example.dmitry.bookstore.ui.base;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.view.View;
 
 import com.squareup.otto.Bus;

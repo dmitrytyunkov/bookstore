@@ -1,7 +1,5 @@
 package com.example.dmitry.bookstore.application;
 
-import android.app.Application;
-
 import com.orm.SugarApp;
 import com.squareup.otto.Bus;
 

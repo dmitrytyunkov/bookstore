@@ -19,6 +19,8 @@ import java.util.Locale;
  */
 public class Author extends SugarRecord {
 
+    @Ignore
+    final DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
     String firstName;
     String lastName;
     String patronymic;
@@ -27,8 +29,6 @@ public class Author extends SugarRecord {
     List<EAddress> emails;
     @Ignore
     List<Book> books;
-    @Ignore
-    final DateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 
     public Author(String firstName, String lastName, String patronymic, String birthday, List<EAddress> emails, List<Book> books) throws AuthorException {
         setFirstName(firstName);
@@ -56,8 +56,20 @@ public class Author extends SugarRecord {
         return firstName;
     }
 
+    public void setFirstName(String firstName) throws AuthorException {
+        if (firstName == null || firstName.length() == 0)
+            throw new AuthorException(AuthorErrorCode.FIRST_NAME_INCORRECT.getErrorString());
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) throws AuthorException {
+        if (lastName == null || lastName.length() == 0)
+            throw new AuthorException(AuthorErrorCode.LAST_NAME_INCORRECT.getErrorString());
+        this.lastName = lastName;
     }
 
     public String getPatronymic() {
@@ -68,6 +80,9 @@ public class Author extends SugarRecord {
         return birthday;
     }
 
+    public void setBirthday(String birthday) throws AuthorException {
+        this.birthday = dateFormatter(birthday);
+    }
 
     public DateFormat getFormat() {
         return format;
@@ -86,26 +101,9 @@ public class Author extends SugarRecord {
         return books;
     }
 
-
-    public void setFirstName(String firstName) throws AuthorException {
-        if(firstName == null || firstName.length()==0)
-            throw new AuthorException(AuthorErrorCode.FIRST_NAME_INCORRECT.getErrorString());
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) throws AuthorException {
-        if(firstName == null || firstName.length()==0)
-            throw new AuthorException(AuthorErrorCode.LAST_NAME_INCORRECT.getErrorString());
-        this.lastName = lastName;
-    }
-
-    public void setBirthday(String birthday) throws AuthorException {
-        this.birthday = dateFormatter(birthday);
-    }
-
     @Override
     public String toString() {
-        return lastName + " " + firstName + " " + patronymic + ", " + format.format(birthday) + " г.р.";
+        return firstName + " " + patronymic + " " + lastName + ", " + format.format(birthday) + " г.р.";
     }
 
 
@@ -120,12 +118,12 @@ public class Author extends SugarRecord {
         }
         int month = Integer.parseInt(strings[1]);
         int day = Integer.parseInt(strings[0]);
-        if(year < 1850)
+        if (year < 1850)
             throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
-        if(month > 12)
+        if (month > 12)
             throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
-        if(day > 31 || (day > 30 && Arrays.binarySearch(month30, month) > -1)
-                || (day > 29 && month == 2 && year%4 == 0) || (day > 28 && month == 2 && year%4 != 0))
+        if (day > 31 || (day > 30 && Arrays.binarySearch(month30, month) > -1)
+                || (day > 29 && month == 2 && year % 4 == 0) || (day > 28 && month == 2 && year % 4 != 0))
             throw new AuthorException(AuthorErrorCode.BIRTHDAY_INCORRECT.getErrorString());
         Date date;
         try {

@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,14 +16,10 @@ import com.example.dmitry.bookstore.model.Book;
 import com.example.dmitry.bookstore.model.EAddress;
 import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,12 +68,12 @@ public class ShowAuthorFragment extends BaseFragment {
                     author.getFirstName()));
             linearShowAuthor.addView(textView);
             textView = new TextView(getActivity());
-            textView.setText(String.format("%s: %s", getString(R.string.last_name_text),
-                    author.getLastName()));
-            linearShowAuthor.addView(textView);
-            textView = new TextView(getActivity());
             textView.setText(String.format("%s: %s", getString(R.string.patronymic_text),
                     author.getPatronymic()));
+            linearShowAuthor.addView(textView);
+            textView = new TextView(getActivity());
+            textView.setText(String.format("%s: %s", getString(R.string.last_name_text),
+                    author.getLastName()));
             linearShowAuthor.addView(textView);
             textView = new TextView(getActivity());
             textView.setText(String.format("%s: %s", getString(R.string.birthday_text),

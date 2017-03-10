@@ -2,12 +2,11 @@ package com.example.dmitry.bookstore.ui.base;
 
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.example.dmitry.bookstore.R;
 import com.example.dmitry.bookstore.application.App;

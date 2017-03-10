@@ -4,7 +4,6 @@ import com.example.dmitry.bookstore.error_code.BookErrorCode;
 import com.example.dmitry.bookstore.exception.BookException;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
-import com.orm.dsl.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +38,30 @@ public class Book extends SugarRecord {
         return title;
     }
 
+    public void setTitle(String title) throws BookException {
+        if (title == null || title.length() == 0)
+            throw new BookException(BookErrorCode.TITLE_INCORRECT.getErrorString());
+        this.title = title;
+    }
+
     public int getYear() {
         return year;
     }
 
+    public void setYear(int year) throws BookException {
+        if (year < 1900)
+            throw new BookException(BookErrorCode.YEARS_INCORRECT.getErrorString());
+        this.year = year;
+    }
+
     public int getPages() {
         return pages;
+    }
+
+    public void setPages(int pages) throws BookException {
+        if (pages < 1)
+            throw new BookException(BookErrorCode.PAGES_INCORRECT.getErrorString());
+        this.pages = pages;
     }
 
     public List<Author> getAuthors() {
@@ -56,28 +73,8 @@ public class Book extends SugarRecord {
         return authors;
     }
 
-
-    public void setTitle(String title) throws BookException {
-        if(title == null || title.length() == 0)
-            throw new BookException(BookErrorCode.TITLE_INCORRECT.getErrorString());
-        this.title = title;
-    }
-
-    public void setYear(int year) throws BookException {
-        if(year < 1900)
-            throw new BookException(BookErrorCode.YEARS_INCORRECT.getErrorString());
-        this.year = year;
-    }
-
-    public void setPages(int pages) throws BookException {
-        if(pages < 1)
-            throw new BookException(BookErrorCode.PAGES_INCORRECT.getErrorString());
-        this.pages = pages;
-    }
-
-
     @Override
     public String toString() {
-        return  title + ", " + year + "г., " + pages + "с.";
+        return title + ", " + year + "г., " + pages + "с.";
     }
 }

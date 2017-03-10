@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitry.bookstore.R;
+import com.example.dmitry.bookstore.error_code.AuthorErrorCode;
 import com.example.dmitry.bookstore.exception.AuthorException;
 import com.example.dmitry.bookstore.model.Author;
 import com.example.dmitry.bookstore.model.EAddress;
@@ -43,6 +44,7 @@ public class AddAuthorFragment extends BaseFragment {
     LinearLayout linearMain;
 
     List<EditText> editTexts = new ArrayList<>();
+    List<EAddress> eAddresses = new ArrayList<>();
 
 
     public AddAuthorFragment() {
@@ -87,14 +89,38 @@ public class AddAuthorFragment extends BaseFragment {
             isException = true;
             Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        if(!isException) {
-            author.save();
-            EAddress eAddress = new EAddress(emailEditText.getText().toString(), author);
-            eAddress.save();
-            for (EditText editText : editTexts) {
-                eAddress = new EAddress(editText.getText().toString(), author);
-                eAddress.save();
+        if (!isException) {
+            isException = false;
+            EAddress eAddress;
+            try {
+                eAddress = new EAddress(emailEditText.getText().toString(), author);
+                eAddresses.add(eAddress);
+                for (EditText editText : editTexts) {
+                    eAddress = new EAddress(editText.getText().toString(), author);
+                    eAddresses.add(eAddress);
+                }
+            } catch (AuthorException ex) {
+                if (!ex.getMessage().equals(AuthorErrorCode.EMAIL_EMPTY.getErrorString())) {
+                    isException = true;
+                    Toast.makeText(getActivity().getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
+            if (!isException) {
+                author.save();
+                for (EAddress email : eAddresses) {
+                    email.save();
+                }
+                firstNameEditText.setText("");
+                lastNameEditText.setText("");
+                patronymicEditText.setText("");
+                birthdayEditText.setText("");
+                emailEditText.setText("");
+                for (EditText editText : editTexts) {
+                    linearMain.removeView(editText);
+                }
+                editTexts.clear();
+            }
+            eAddresses.clear();
         }
     }
 }

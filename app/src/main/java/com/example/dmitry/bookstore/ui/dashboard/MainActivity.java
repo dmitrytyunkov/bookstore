@@ -9,9 +9,9 @@ import com.example.dmitry.bookstore.events.OpenShowAuthorFragmentEvent;
 import com.example.dmitry.bookstore.events.OpenShowBookFragmentEvent;
 import com.example.dmitry.bookstore.ui.add.AddAuthorFragment;
 import com.example.dmitry.bookstore.ui.add.AddBookFragment;
+import com.example.dmitry.bookstore.ui.base.BaseActivity;
 import com.example.dmitry.bookstore.ui.show.ShowAuthorFragment;
 import com.example.dmitry.bookstore.ui.show.ShowBookFragment;
-import com.example.dmitry.bookstore.ui.base.BaseActivity;
 import com.squareup.otto.Subscribe;
 
 public class MainActivity extends BaseActivity {
