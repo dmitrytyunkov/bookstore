@@ -8,14 +8,15 @@ import android.view.View;
 import com.squareup.otto.Bus;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by dmitry on 10.03.16.
  */
 public class BaseFragment extends Fragment {
 
-
     private Bus bus;
+    Unbinder unbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,13 +46,13 @@ public class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public BaseActivity getBaseActivity() {

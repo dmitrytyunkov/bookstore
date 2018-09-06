@@ -17,8 +17,9 @@ import com.example.dmitry.bookstore.ui.base.BaseFragment;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +27,9 @@ import butterknife.ButterKnife;
 public class ShowBookFragment extends BaseFragment {
 
 
-    @Bind(R.id.linear_show_books)
+    @BindView(R.id.linear_show_books)
     LinearLayout linearShowBooks;
+    Unbinder unbinder;
 
     TextView textView;
 
@@ -42,7 +44,7 @@ public class ShowBookFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_book, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -55,7 +57,7 @@ public class ShowBookFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 

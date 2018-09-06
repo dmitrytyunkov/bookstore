@@ -20,9 +20,10 @@ import com.example.dmitry.bookstore.ui.base.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,18 +31,19 @@ import butterknife.OnClick;
 public class AddAuthorFragment extends BaseFragment {
 
 
-    @Bind(R.id.first_name_edit_text)
+    @BindView(R.id.first_name_edit_text)
     EditText firstNameEditText;
-    @Bind(R.id.last_name_edit_text)
+    @BindView(R.id.last_name_edit_text)
     EditText lastNameEditText;
-    @Bind(R.id.patronymic_edit_text)
+    @BindView(R.id.patronymic_edit_text)
     EditText patronymicEditText;
-    @Bind(R.id.birthday_edit_text)
+    @BindView(R.id.birthday_edit_text)
     EditText birthdayEditText;
-    @Bind(R.id.email_edit_text)
+    @BindView(R.id.email_edit_text)
     EditText emailEditText;
-    @Bind(R.id.linear_add_author)
+    @BindView(R.id.linear_add_author)
     LinearLayout linearMain;
+    Unbinder unbinder;
 
     List<EditText> editTexts = new ArrayList<>();
     List<EAddress> eAddresses = new ArrayList<>();
@@ -57,14 +59,14 @@ public class AddAuthorFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_author, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 

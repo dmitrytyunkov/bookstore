@@ -24,10 +24,11 @@ import com.example.dmitry.bookstore.ui.base.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,14 +36,15 @@ import butterknife.OnItemClick;
 public class AddBookFragment extends BaseFragment {
 
 
-    @Bind(R.id.title_book_edit_text)
+    @BindView(R.id.title_book_edit_text)
     EditText titleBookEditText;
-    @Bind(R.id.year_edit_text)
+    @BindView(R.id.year_edit_text)
     EditText yearEditText;
-    @Bind(R.id.pages_edit_text)
+    @BindView(R.id.pages_edit_text)
     EditText pagesEditText;
-    @Bind(R.id.author_list_view)
+    @BindView(R.id.author_list_view)
     ListView authorListView;
+    Unbinder unbinder;
 
     List<Author> authors;
     List<Author> authorList;
@@ -64,7 +66,7 @@ public class AddBookFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_book, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -77,7 +79,7 @@ public class AddBookFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
 
